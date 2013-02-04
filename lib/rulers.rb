@@ -19,7 +19,6 @@ module Rulers
       klass, act = get_controller_and_action(env)
       controller = klass.new(env)
       begin
-        p env
         text = controller.send(act)
         [200, {'Content-Type' => 'text/html'},
          [text]]

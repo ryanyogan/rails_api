@@ -37,6 +37,10 @@ module Rulers
         files.map { |f| FileModel.new f }
       end
 
+      def self.save attrs
+
+      end
+
       # Have not implemented JSON ORM so 
       # using flat files at the moment... Fuck you if
       # it bothers you
