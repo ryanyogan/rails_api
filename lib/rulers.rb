@@ -13,9 +13,14 @@ module Rulers
 
       klass, act = get_controller_and_action(env)
       controller = klass.new(env)
-      text = controller.send(act)
-      [200, {'Content-Type' => 'text/html'},
-       [text]]
+      begin
+        text = controller.send(act)
+        [200, {'Content-Type' => 'text/html'},
+         [text]]
+      rescue 
+        [500, {'Content-Type' => 'text/html'},
+         ["Oh crap, something broke! Look at the stack trace."]]
+      end
     end
   end
 
