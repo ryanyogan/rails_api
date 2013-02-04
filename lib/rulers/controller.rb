@@ -9,6 +9,29 @@ module Rulers
 
     def initialize env
       @env = env
+      @routing_params = {}
+    end
+
+    # This is a poor mans ActionDispatch similar to rails
+    # this is going to pass any additional paramters, crazy uri's
+    # etc... 
+    def dispatch(action, routing_params = {})
+      @routing_params = routing_params
+      text = self.send action
+      if get_response
+        status, header, response = get_response.to_a
+        [status, header, [response].flatten]
+      else
+        [200, {'Content-Type' => 'text/html'},
+         [text].flatten]
+      end
+    end
+
+    # We need to pass a proc object back to the rack router, we build it
+    # in side this method, notice we call dispatch with the action and
+    # request paramaters /:id, etc..
+    def self.action(action, routing_params = {})
+      proc { |e| self.new(e).dispatch(action, routing_params) }
     end
 
     # Let's cache the result here if it doesn't
@@ -35,7 +58,7 @@ module Rulers
     # environment hash, hence we can extrapolate 
     # "rails like" params very easily
     def params
-      request.params
+      request.params.merge @routing_params
     end
 
     def controller_name

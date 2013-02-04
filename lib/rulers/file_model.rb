@@ -58,12 +58,12 @@ module Rulers
 
         File.open("db/quotes/#{id}.json", "w") do |f|
           f.write <<-TEMPLATE
-{
-  "submitter": "#{hash["submitter"]}",
-  "quote": "#{hash["quote"]}",
-  "attribution": "#{hash["attribution"]}"
-}
-TEMPLATE
+          {
+            "submitter": "#{hash["submitter"]}",
+            "quote": "#{hash["quote"]}",
+            "attribution": "#{hash["attribution"]}"
+          }
+          TEMPLATE
         end
         FileModel.new "db/quotes/#{id}.json"
       end

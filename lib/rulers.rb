@@ -17,14 +17,8 @@ module Rulers
       end
 
       klass, action = get_controller_and_action env
-      controller    = klass.new env
-      text          = controller.send action
-      if controller.get_response
-        st, hd, rs = controller.get_response.to_a
-        [st, hd, [rs.body].flatten]
-      else
-        [200, {'Content-Type' => 'text/html'}, [text]]
-      end 
+      rack_app = klass.action action
+      rack_app.call env
     end
   end
 end
