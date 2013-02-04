@@ -2,6 +2,7 @@ require "rulers/version"
 require "rulers/routing"
 require "rulers/util"
 require "rulers/dependencies"
+require "rulers/controller"
 require "rulers/array"
 
 
@@ -24,14 +25,5 @@ module Rulers
          ["Oh crap, something broke! Look at the stack trace.\n #{e}"]]
       end
     end
-  end
-
-  class Controller
-    attr_reader :env
-
-    def initialize(env)
-      @env = env
-    end
-
   end
 end
