@@ -9,7 +9,7 @@ module Rulers
       @env = env
     end
 
-    def render(view_name, lcoals = {})
+    def render(view_name, locals = {})
       filename = File.join "app", "views",
         "#{view_name}.html.erb"
       template = File.read filename
