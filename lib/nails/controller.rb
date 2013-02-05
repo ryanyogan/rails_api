@@ -1,5 +1,5 @@
 require "erubis"
-require "rulers/file_model"
+require "nails/file_model"
 require "rack/request"
 
 module Nails
