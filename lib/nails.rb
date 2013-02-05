@@ -1,14 +1,14 @@
-require "rulers/version"
-require "rulers/routing"
-require "rulers/util"
-require "rulers/dependencies"
-require "rulers/controller"
-require "rulers/file_model"
+require "nails/version"
+require "nails/routing"
+require "nails/util"
+require "nails/dependencies"
+require "nails/controller"
+require "nails/file_model"
 
-require "rulers/array"
+require "nails/array"
 
 
-module Rulers
+module Nails
   class Application
     def call(env)
       if env["PATH_INFO"] == '/favicon.ico' || env["PATH_INFO"] == '/'

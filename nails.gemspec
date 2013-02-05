@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rulers/version'
+require 'nails/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "rulers"
-  gem.version       = Rulers::VERSION
+  gem.name          = "nails"
+  gem.version       = Nails::VERSION
   gem.authors       = ["Ryan Yogan"]
   gem.email         = ["ryanyogan@gmail.com"]
-  gem.description   = %q{A rack based micro framework}
+  gem.description   = %q{A rack based micro framework intended for learning, please do not use this in production, yet ;)}
   gem.summary       = %q{A rack based micro framework}
   gem.homepage      = ""
 

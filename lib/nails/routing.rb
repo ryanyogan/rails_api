@@ -1,4 +1,4 @@
-# rulers/lib/rulers/routing.rb
+# lib/nails/routing.rb
 class RouteObject
   def initialize
     @rules = []
@@ -72,7 +72,7 @@ class RouteObject
   end
 end
 
-module Rulers
+module Nails
   class Application
     def route &block
       @route_obj ||= RouteObject.new

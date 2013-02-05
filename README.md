@@ -1,12 +1,13 @@
-# Rulers
+# Ruby on Nails
 
-TODO: Write a gem description
+What we have here ladies is a small framework called Ruby on Nails,
+which is intened for learning 
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'rulers'
+    gem 'nails'
 
 And then execute:
 
@@ -14,11 +15,12 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install rulers
+    $ gem install nails
 
 ## Usage
 
-TODO: Write usage instructions here
+We will be going over this in person, after which the assignments will
+be explained in this document.
 
 ## Contributing
 

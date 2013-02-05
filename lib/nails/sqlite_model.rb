@@ -1,11 +1,11 @@
-# rulers/lib/rulers/sqlite_model.rb
+# lib/nails/sqlite_model.rb
 
 require "sqlite3"
-require "rulers/util"
+require "nails/util"
 
 DB = SQLite3::Database.new "development.db"
 
-module Rulers
+module Nails
   module Model
     class SQLite
 

@@ -1,20 +1,20 @@
-# rulers/test/test_application.rb
+# nails/test/test_application.rb
 
 require_relative "test_helper"
 
-class TestController < Rulers::Controller
+class TestController < Nails::Controller
   def index
     "Hello!" #Don't render a view
   end
 end
 
-class TestApp < Rulers::Application
+class TestApp < Nails::Application
   def test_controller_and_action env
     [TestController, "index"]
   end
 end
 
-class RulersAppTest < Test::Unit::TestCase
+class NailsAppTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app

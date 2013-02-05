@@ -1,6 +1,6 @@
-# rulers/lib/rulers/util.rb
+# lib/nails/util.rb
 
-module Rulers
+module Nails
   # This method is the same as the one from ActiveSupport
   # but let's not bog down with AS until we need to.
   def self.to_underscore string

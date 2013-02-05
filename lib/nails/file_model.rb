@@ -1,8 +1,8 @@
-# rulers/lib/rulers/file_model.rb
+# lib/nails/file_model.rb
 
 require "multi_json"
 
-module Rulers
+module Nails
   module Model
     class FileModel
       def initialize filename
@@ -42,7 +42,7 @@ module Rulers
       end
 
       # Have not implemented JSON ORM so 
-      # using flat files at the moment... Fuck you if
+      # using flat files at the moment...  suck a lemon if
       # it bothers you
 
       def self.create attrs

@@ -1,10 +1,10 @@
-# rulers/lib/rulers/controller.rb
+# lib/nails/controller.rb
 require "erubis"
-require "rulers/file_model"
+require "nails/file_model"
 
-module Rulers
+module Nails
   class Controller
-    include Rulers::Model
+    include Nails::Model
     attr_reader :env
 
     def initialize env
@@ -64,7 +64,7 @@ module Rulers
     def controller_name
       klass = self.class
       klass = klass.to_s.gsub /Controller$/, ""
-      Rulers.to_underscore klass
+      Nails.to_underscore klass
     end
 
     def render(view_name, locals = {})
