@@ -5,7 +5,7 @@ require "nails/dependencies"
 require "nails/controller"
 require "nails/file_model"
 
-require "nails/array"
+require "nails/array" # This doesn't do anything other than show "Monkey Patching"
 
 
 module Nails

@@ -74,14 +74,23 @@ end
 
 module Nails
   class Application
-    def route &block
+    def route(&block)
       @route_obj ||= RouteObject.new
       @route_obj.instance_eval(&block)
     end
 
     def get_rack_app env
-      raise "No Routes!" unless @route_obj
+      raise "No routes!" unless @route_obj
       @route_obj.check_url env["PATH_INFO"]
+    end
+
+    def get_controller_and_action env
+      _, controller, action, after = 
+        env["PATH_INFO"].split("/", 4)
+      controller = controller.capitalize #Quotes
+      controller += "Controller" # "QuotesController
+
+      [Object.const_get(controller), action]
     end
   end
 end

@@ -1,70 +1,56 @@
-# lib/nails/controller.rb
 require "erubis"
-require "nails/file_model"
+require "rulers/file_model"
+require "rack/request"
 
 module Nails
   class Controller
     include Nails::Model
-    attr_reader :env
 
-    def initialize env
+    def initialize(env)
       @env = env
       @routing_params = {}
     end
 
-    # This is a poor mans ActionDispatch similar to rails
-    # this is going to pass any additional paramters, crazy uri's
-    # etc... 
+    def env
+      @env
+    end
+
+    def request
+      @request ||= Rack::Request.new(@env)
+    end
+
     def dispatch(action, routing_params = {})
       @routing_params = routing_params
-      text = self.send action
+      text = self.send(action)
       if get_response
-        status, header, response = get_response.to_a
-        [status, header, [response].flatten]
+        st, hd, rs = get_response.to_a
+        [st, hd, [rs].flatten]
       else
         [200, {'Content-Type' => 'text/html'},
-         [text].flatten]
+          [text].flatten]
       end
     end
 
-    # We need to pass a proc object back to the rack router, we build it
-    # in side this method, notice we call dispatch with the action and
-    # request paramaters /:id, etc..
-    def self.action(action, routing_params = {})
-      proc { |e| self.new(e).dispatch(action, routing_params) }
+    def self.action(act, rp = {})
+      proc { |e| self.new(e).dispatch(act, rp) }
     end
 
-    # Let's cache the result here if it doesn't
-    # exist
-    def request
-      @request ||= Rack::Request.new @env
+    def params
+      request.params.merge @routing_params
     end
 
-    def response(text, status = 200, headers = {})
+    def response(text, status=200, headers = {})
       raise "Already responded!" if @response
       a = [text].flatten
       @response = Rack::Response.new(a, status, headers)
     end
 
-    def get_response # Internal use only
-      @response # attr_reader would make more sense
+    def get_response # Only for Nails
+      @response
     end
 
     def render_response(*args)
       response(render(*args))
-    end
-
-    # Thanks to Rack, we now have a parsed out 
-    # environment hash, hence we can extrapolate 
-    # "rails like" params very easily
-    def params
-      request.params.merge @routing_params
-    end
-
-    def controller_name
-      klass = self.class
-      klass = klass.to_s.gsub /Controller$/, ""
-      Nails.to_underscore klass
     end
 
     def render(view_name, locals = {})
@@ -72,7 +58,13 @@ module Nails
         controller_name, "#{view_name}.html.erb"
       template = File.read filename
       eruby = Erubis::Eruby.new(template)
-      eruby.result locals.merge(env: env)
+      eruby.result locals.merge(:env => env)
+    end
+
+    def controller_name
+      klass = self.class
+      klass = klass.to_s.gsub /Controller$/, ""
+      Nails.to_underscore klass
     end
   end
 end
