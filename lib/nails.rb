@@ -11,7 +11,7 @@ require "nails/array" # This doesn't do anything other than show "Monkey Patchin
 module Nails
   class Application
     def call(env)
-      if env["PATH_INFO"] == '/favicon.ico' || env["PATH_INFO"] == '/'
+      if env["PATH_INFO"] == '/favicon.ico'
         return [404,
                 {'Content-Type' => 'text/html'}, []]
       end

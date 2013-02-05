@@ -1,4 +1,3 @@
-# lib/nails/routing.rb
 class RouteObject
   def initialize
     @rules = []
@@ -11,7 +10,7 @@ class RouteObject
 
     dest = nil
     dest = args.pop if args.size > 0
-    raise "Too many parameter arguments!" if args.size > 0
+    raise "Too many args!" if args.size > 0
 
     parts = url.split("/")
     parts.select! { |p| !p.empty? }
@@ -34,11 +33,11 @@ class RouteObject
       :regexp => Regexp.new("^/#{regexp}$"),
       :vars => vars,
       :dest => dest,
-      :options => options
+      :options => options,
     })
   end
 
-  def check_url url
+  def check_url(url)
     @rules.each do |r|
       m = r[:regexp].match(url)
 
@@ -53,11 +52,13 @@ class RouteObject
           return get_dest(r[:dest], params)
         else
           controller = params["controller"]
-          action     = params["action"]
-          return get_dest("#{controller}" + "##{action}", params)
+          action = params["action"]
+          return get_dest("#{controller}" +
+            "##{action}", params)
         end
       end
     end
+
     nil
   end
 
@@ -79,19 +80,18 @@ module Nails
       @route_obj.instance_eval(&block)
     end
 
-    def get_rack_app env
+    def get_rack_app(env)
       raise "No routes!" unless @route_obj
       @route_obj.check_url env["PATH_INFO"]
     end
 
-    def get_controller_and_action env
-      _, controller, action, after = 
-        env["PATH_INFO"].split("/", 4)
-      controller = controller.capitalize #Quotes
-      controller += "Controller" # "QuotesController
+    def get_controller_and_action(env)
+      _, cont, action, after =
+        env["PATH_INFO"].split('/', 4)
+      cont = cont.capitalize # "People"
+      cont += "Controller" # "PeopleController"
 
-      [Object.const_get(controller), action]
+      [Object.const_get(cont), action]
     end
   end
 end
-
